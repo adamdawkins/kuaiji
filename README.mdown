@@ -1,0 +1,37 @@
+Accounts Reconcilor Library
+===========================
+
+This library should work with a series of bank transactions and do the following:
+
+  * Enable users to assign an explaination to a transaction.
+  * Make sensible predictions about the explainations for new Transactions, based on the previous explainations provided by the user.
+  * Retrieve transactions by category or tag.
+  * View the attachments
+Explaination = {
+  description: "Birthday present",
+  categories: [gifts],
+  tags: [unplanned, family, giving],
+  attachments: ['receipt.pdf']
+}
+
+A story of two applications
+---------------------------
+Two applications I want to build need this common library at the core:
+
+Team budget application:
+  transaction explainations assign transactions to squads and spending types. Also has an 'expenses request' feature to log an expense, and the ability to map that expense as the explanation for a transaction:
+    Expense < Explanation do
+      spent_by = user id,
+      evidence = self.attachment.
+  
+Personal budget application:
+
+Finally want to nail finance tracking and budget setting by creating a really simple interface. 
+
+list categories: set spending amount for month per category, explain transactions, review actual vs budget.
+
+
+Import library
+--------------
+
+Ability to import CSVs, PDFs etc and turn them into an array of transactions
