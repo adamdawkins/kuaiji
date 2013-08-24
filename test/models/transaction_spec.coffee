@@ -62,11 +62,24 @@ describe 'Transaction', ->
         transaction.should.have.property 'description'
   
   describe "addExplaination()", ->
-    before ->
-      transaction = new Transaction {amount: 10.00, description: 'transaction'}
-    it "rejects explainations that are of greater value than the amount", ->
-      (->
-        transaction.addExplaination {value: 15.00, description: 'explaination'}
-      ).should.throwError "explaination of 15 was added, but only 10 is unexplained" 
+    describe "invalid", ->
+      it "rejects explainations that are of greater value than the amount", ->
+        transaction = new Transaction {amount: 10.00, description: 'transaction'}
 
+        (->
+          transaction.addExplaination {value: 15.00, description: 'explaination'}
+        ).should.throwError "explaination of 15 was added, but only 10 is unexplained" 
+      it "rejects explainations that are of lesser amount if amount is negative", ->
+        transaction = new Transaction {amount: -10.00, description: 'transaction'}
+        (->
+          transaction.addExplaination {value: -15.00, description: 'explaination'}
+        ).should.throwError "explaination of 15 was added, but only 10 is unexplained" 
+    describe "valid", ->
+      before ->
+        transaction = new Transaction {amount: 10.00, description: 'transaction'}
+        transaction.addExplaination {value: 5.00, description: 'explaination'}
+
+      it "adds explaination to explainations property", ->
+        transaction.explainations.length.should.equal 1
+        transaction.explainations[0].value.should.equal 5.00
 

@@ -23,9 +23,21 @@ class Transaction
   setDefaults: ->
     unless @date
       @date = new Date()
+    @explainations = []
 
   addExplaination: (explaination) ->
-    if explaination.value > @amount 
-      throw new Error "explaination of #{explaination.value} was added, but only #{@amount} is unexplained"
+    if @amount > 0 and explaination.value > @amount
+      throw new Error(
+        "explaination of #{explaination.value} was added, but only #{@amount} is unexplained"
+      )
+
+    if @amount < 0 and explaination.value < @amount
+      throw new Error(
+        "explaination of #{explaination.value * -1} was added, but only #{@amount *-1} is unexplained"
+      )
+
+    @explainations.push explaination 
+    
+
 
 module.exports = Transaction
