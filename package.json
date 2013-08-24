@@ -1,0 +1,26 @@
+{
+  "name": "kuaiji",
+  "version": "0.0.0",
+  "description": "Accounts Reconcilor Library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adamdawkins/kuaiji.git"
+  },
+  "author": "",
+  "license": "BSD",
+  "readmeFilename": "README.mdown",
+  "gitHead": "d864acda4bc2151d6459634706577eb585de97eb",
+  "bugs": {
+    "url": "https://github.com/adamdawkins/kuaiji/issues"
+  },
+  "dependencies": {
+    "coffee-script": "~1.6.3"
+  },
+  "devDepedencies": {
+    "mocha": "~1.12.0"
+  }
+}

@@ -16,6 +16,7 @@ Explaination = {
 
 A story of two applications
 ---------------------------
+
 Two applications I want to build need this common library at the core:
 
 Team budget application:
