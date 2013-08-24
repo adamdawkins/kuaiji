@@ -1,10 +1,25 @@
 
 class Transaction
   constructor: (attributes) ->
-    if attributes['amount'] is undefined
+    amount = attributes['amount']
+    date = attributes['date']
+    if amount is undefined
       throw new Error "Transaction requires an amount"
-    else
-      @[key] =  value for key, value of attributes
+    else if typeof amount isnt "number"
+      throw new Error "amount must be a number"
+
+    @amount = amount
+   
+    unless date is undefined
+      @date = new Date(date)
+
+    @setDefaults()
+
+  setDefaults: ->
+    unless @date
+      @date = new Date()
+
+
 
 module.exports = Transaction
 
