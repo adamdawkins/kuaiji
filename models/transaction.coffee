@@ -24,6 +24,7 @@ class Transaction
     unless @date
       @date = new Date()
     @explainations = []
+    @unexplained_amount = Math.abs @amount
 
   addExplaination: (explaination) ->
     if @amount > 0 and explaination.value > @amount
@@ -36,8 +37,7 @@ class Transaction
         "explaination of #{explaination.value * -1} was added, but only #{@amount *-1} is unexplained"
       )
 
-    @explainations.push explaination 
-    
-
+    @explainations.push explaination
+    @unexplained_amount -= Math.abs explaination.value
 
 module.exports = Transaction

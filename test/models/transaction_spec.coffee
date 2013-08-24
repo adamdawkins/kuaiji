@@ -44,7 +44,7 @@ describe 'Transaction', ->
       it "sets date to now without passed attribute", ->
         now = new Date()
         transaction.date.getFullYear().should.equal now.getFullYear()
-        transaction.date.getMonth().should.equal now.getMonth() 
+        transaction.date.getMonth().should.equal now.getMonth()
         transaction.date.getDate().should.equal now.getDate()
 
       it "sets date to passed attribute", ->
@@ -55,7 +55,7 @@ describe 'Transaction', ->
         }
 
         transaction_with_date.date.getFullYear().should.equal 2010
-        transaction_with_date.date.getMonth().should.equal 11 
+        transaction_with_date.date.getMonth().should.equal 11
         transaction_with_date.date.getDate().should.equal 25
 
       it "has a description property", ->
@@ -68,12 +68,12 @@ describe 'Transaction', ->
 
         (->
           transaction.addExplaination {value: 15.00, description: 'explaination'}
-        ).should.throwError "explaination of 15 was added, but only 10 is unexplained" 
+        ).should.throwError "explaination of 15 was added, but only 10 is unexplained"
       it "rejects explainations that are of lesser amount if amount is negative", ->
         transaction = new Transaction {amount: -10.00, description: 'transaction'}
         (->
           transaction.addExplaination {value: -15.00, description: 'explaination'}
-        ).should.throwError "explaination of 15 was added, but only 10 is unexplained" 
+        ).should.throwError "explaination of 15 was added, but only 10 is unexplained"
     describe "valid", ->
       before ->
         transaction = new Transaction {amount: 10.00, description: 'transaction'}
@@ -82,4 +82,20 @@ describe 'Transaction', ->
       it "adds explaination to explainations property", ->
         transaction.explainations.length.should.equal 1
         transaction.explainations[0].value.should.equal 5.00
+
+      it "reduces the unexplained amount by the value of the explaination", ->
+        transaction.unexplained_amount.should.equal 5.00
+
+      it "reduces the unexplained amount for negative transactions", ->
+        negative_transaction = new Transaction {
+          amount: -10.00
+          description: 'transaction'
+        }
+
+        negative_transaction.addExplaination {
+          value: -5.00
+          description: 'explaination'
+        }
+
+        negative_transaction.unexplained_amount.should.equal 5.00
 
