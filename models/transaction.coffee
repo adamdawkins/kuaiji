@@ -1,17 +1,22 @@
 
 class Transaction
+
   constructor: (attributes) ->
     amount = attributes['amount']
     date = attributes['date']
+    description = attributes['description']
+
     if amount is undefined
       throw new Error "Transaction requires an amount"
     else if typeof amount isnt "number"
       throw new Error "amount must be a number"
-
-    @amount = amount
-   
-    unless date is undefined
-      @date = new Date(date)
+    else if description is undefined
+      throw new Error "Transaction requires a description"
+    else
+      @amount = amount
+      @description = description
+      unless date is undefined
+        @date = new Date(date)
 
     @setDefaults()
 
@@ -19,7 +24,8 @@ class Transaction
     unless @date
       @date = new Date()
 
-
+  addExplaination: (explaination) ->
+    if explaination.value > @amount 
+      throw new Error "explaination of #{explaination.value} was added, but only #{@amount} is unexplained"
 
 module.exports = Transaction
-
